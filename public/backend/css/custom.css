@@ -1,0 +1,17 @@
+.pullright{
+  float:right;
+}
+
+.small-btn {
+  padding: 3px 5px;
+  font-size: 10px;
+  display: inline-block;
+}
+
+xmp {
+	white-space: initial;
+}
+
+.btn-curser {
+  cursor: pointer;
+}
