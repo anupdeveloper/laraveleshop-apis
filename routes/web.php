@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Frontend\HomeController;
+
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\AdminAuthController;
 use App\Http\Controllers\Backend\AdminCategoriesController;
@@ -18,13 +20,17 @@ use App\Http\Controllers\Backend\AdminProductController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+/*      Frontend APIS        */
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+
+
+Route::get('/', 'App\Http\Controllers\Frontend\HomeController@index')->name('home');
+Route::get('/cart', 'App\Http\Controllers\Frontend\HomeController@cart')->name('cart');
+Route::post('/addtocart/{id}', 'App\Http\Controllers\Frontend\HomeController@addtocart');
+
+Route::post('/cartcheckout', 'App\Http\Controllers\Frontend\HomeController@cartcheckout');
+Route::get('/stripe-payment/{order_id}', [HomeController::class, 'showstripeform'])->name('stripe-show-form');
+Route::post('/stripe-payment', [HomeController::class, 'makepayment'])->name('stripe.payment');
 
 require __DIR__.'/auth.php';
 
